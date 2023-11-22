@@ -206,9 +206,7 @@ span.label-mhover{
     padding-bottom: 25px;
 }
 
-.container-fluid{
-    display: flex;
-}
+
 .title-flat-form{
    background-color: #E34724;
    height: 50px;

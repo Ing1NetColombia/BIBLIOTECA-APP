@@ -1,13 +1,13 @@
-function cargarFormulario(nameForm) {
+function cargarFormulario(nameForm,url) {
    
-    var url = 'libros.html';
+    //declaracion de variables para el llamado de los formularios
+    //var url = 'libros.html';
 
     // Obtener el elemento por su ID
     var limpiar = document.getElementById(nameForm);
 
     // Limpiar el contenido utilizando innerHTML
     limpiar.innerHTML = '';
-
 
     // Realizar una solicitud de red mediante fetch
     fetch(url)
@@ -17,11 +17,6 @@ function cargarFormulario(nameForm) {
             document.getElementById(nameForm).innerHTML = data;
         })
         .catch(error => console.error('Error al cargar el formulario:', error));
-
-
-    
-
-
 
 }
 
