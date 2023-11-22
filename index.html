@@ -19,6 +19,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/functions.js"></script>
 
 
 
@@ -47,7 +48,7 @@
                     <li>
                         <div class="dropdown-menu-button"></i>&nbsp;&nbsp; Libros y catálogo  <img src="./assets/chevron-down.svg"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href=""></i>&nbsp;&nbsp; Libros</a></li>
+                            <li><a href="#" onclick="cargarFormulario('container-princip')"></i>&nbsp;&nbsp; Libros</a></li>
                             <li><a href=""></i>&nbsp;&nbsp; Catálogo</a></li>
                         </ul>
                     </li>
@@ -92,7 +93,7 @@
               <h1 class="all-tittles"><center>Sistema bibliotecario</center> </h1>
             </div>
         </div>
-        <div class="container-fluid"  style="margin: 50px 0;">
+        <div id = "container-princip" class="container-fluid"  style="margin: 10px 0;">
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-3">
                     <img src="assets/img/user01.png" alt="user" class="img-responsive center-box" style="max-width: 110px;">
@@ -155,6 +156,7 @@ Nuestro Sistema está conformado por 35 unidades de información, que están ubi
             </div>           
         </footer>
     </div>
+
 
 
 </body>
