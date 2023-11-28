@@ -68,3 +68,40 @@ function registroLibro(){
     document.getElementById("formRegistro").reset();
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Recuperar datos del localStorage
+  
+    var datosGuardados = localStorage.getItem("book");
+    let n_book = document.getElementById("name-book").value;
+   
+
+  
+    if (datosGuardados) {
+      // Parsear los datos almacenados (suponiendo que son objetos JSON)
+      var datos = JSON.parse(datosGuardados);
+      alert(datos)
+      // Llenar la tarjeta HTML con los datos
+      llenarLibro(datos);
+    }
+  });
+
+
+
+function llenarLibro(datos){
+        // Obtener elementos de la tarjeta por su ID
+
+        let n_book = document.getElementById("name-book").value;
+        let autor = document.getElementById("book-author").value;
+        let editorial = document.getElementById("book-editorial").value;
+        let y_public = document.getElementById("book-publication").value;
+        let genero = document.getElementById("book-gender").value;
+    
+    alert(n_book)
+
+    // Asignar valores a los elementos de la tarjeta
+    
+    n_book.textContent = datos.name_book;
+    
+}
+
+
