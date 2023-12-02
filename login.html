@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/functions.js"></script>
     <title>Inicio de sesion</title>
 </head>
 <body>
-    <div class="login-wrap">
+    <form id="incio">
+      <div class="login-wrap" id = "login">
         <div class="login-html">
           <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
           <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
@@ -42,10 +44,10 @@
               </div>
               <div class="group">
                 <label for="pass" class="label">Email Address</label>
-                <input id="pass" type="text" class="input">
+                <input id="Email" type="text" class="input">
               </div>
               <div class="group">
-                <input type="submit" class="button" value="Sign Up">
+                <input onclick="registroUsuarios()" type="submit" class="button" value="Sign Up">
               </div>
               <div class="hr"></div>
 
@@ -53,5 +55,6 @@
           </div>
         </div>
       </div>
+    </form>
 </body>
 </html>

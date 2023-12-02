@@ -147,6 +147,31 @@ function iniciarSesion() {
     window.location.href = "../pages/home.html";
 }
 
+function registroUsuarios(){
+  let usuarios = document.getElementById("user").value;
+  let password = document.getElementById("pass").value;
+  let email = document.getElementById("Email").value;
+
+  var user = JSON.parse(localStorage.getItem("userlog")) || [];
+       //alerta(book);
+    var userLog = user.filter(function(user_f){
+        return (user_f["user"] == usuarios);
+    });
+    alert(usuarios)
+   if(userLog.length > 0){
+      alert("Usuario ya existe");
+      return;
+  }
+  let user_r = { "user" : usuarios,"pass":password,"Email" : email}
+  user.push(user_r);
+
+  localStorage.setItem("user", JSON.stringify(user));
+    alert("Registro completo");
+    document.getElementById("incio").reset();
+
+}
+
+
 function registroLibro(){
     let n_book = document.getElementById("name-book").value;
     let autor = document.getElementById("book-author").value;
