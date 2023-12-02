@@ -3,93 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/historial.css">
+  <script src="js/functions.js"></script>
+
   <title>Historial de Libros Reservados</title>
-  <style>
-   body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 1em;
-      text-align: center;
-    }
-
-    .container {
-      width: 80%;
-      margin: 20px auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #4CAF50;
-      color: white;
-    }
-  </style>
 </head>
 <body>
 
 <h2>Historial de Libros Reservados</h2>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Libro</th>
-      <th>Fecha de Reserva</th>
-      <th>Usuario</th>
-    </tr>
-  </thead>
-  <tbody id="historialTablaBody">
-    <!-- Los datos se cargarán dinámicamente aquí usando JavaScript -->
-  </tbody>
-</table>
+<section  class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-wrap">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th>Libro</th>
+                <th>Autor</th>
+                <th>Editorial</th>
+                <th>Fecha de reserva</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody id="historialTablaBody">
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</section>
 
 <script>
-  // Supongamos que tienes un array de objetos con el historial de reservas
-  var historialLibros = [
-    { libro: "Harry Potter", fechaReserva: "2023-01-01", usuario: "Usuario1" },
-    { libro: "Cien años de soledad", fechaReserva: "2023-02-15", usuario: "Usuario2" },
-    // Agrega más entradas según sea necesario
-  ];
-
-  // Función para cargar dinámicamente el historial en la tabla
-  function cargarHistorial() {
-    var tablaBody = document.getElementById("historialTablaBody");
-
-    historialLibros.forEach(function(reserva) {
-      var fila = document.createElement("tr");
-
-      var celdaLibro = document.createElement("td");
-      celdaLibro.textContent = reserva.libro;
-      fila.appendChild(celdaLibro);
-
-      var celdaFecha = document.createElement("td");
-      celdaFecha.textContent = reserva.fechaReserva;
-      fila.appendChild(celdaFecha);
-
-      var celdaUsuario = document.createElement("td");
-      celdaUsuario.textContent = reserva.usuario;
-      fila.appendChild(celdaUsuario);
-
-      tablaBody.appendChild(fila);
-    });
-  }
 
   // Llama a la función para cargar el historial al cargar la página
   cargarHistorial();
