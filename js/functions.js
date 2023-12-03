@@ -125,31 +125,52 @@ function cargarFormulario(nameForm,url) {
 }
 
 function iniciarSesion() {
-    let usuario = document.getElementById("usuario").value;
-    let contra = document.getElementById("contra").value;
+  let usuario = document.getElementById("usuario_log").value;
+  let contra = document.getElementById("contra_log").value;
+
+
+
+  try {
+    // Intenta obtener usuarios desde localStorage
+    var users = JSON.parse(localStorage.getItem("user")) || [];
     
-    var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    console.log(usuarios);
-    var usuarioLog = usuarios.filter(function(usuarioF){
-        return (usuarioF["usuario"] == usuario);
+    // Buscar el usuario en el array
+    var userLog = users.find(function(user) {
+      return user["user"] === usuario;
     });
 
-    if(usuarioLog.length == 0){
-        alert("Usuario no encontrado");
-        return;
+    alert(userLog)
+
+    if (!userLog) {
+      alert("Usuario no encontrado");
+      return;
     }
 
-    if(usuarioLog[0]["contra"] != contra){
-        alert("Contraseña incorrecta");
-        return;
+    if (userLog["pass"] !== contra) {
+      alert("Contraseña incorrecta");
+      return;
     }
-    localStorage.setItem("usuario", JSON.stringify(usuarioLog[0]));
-    window.location.href = "../pages/home.html";
+
+    localStorage.setItem("usuarioActual", JSON.stringify(userLog));
+    console.log("Antes de la redirección");
+    
+    // Cambiar la ubicación (URL) a "catalogo.html"
+    window.location.href = "catalogo.html";
+    
+    // Este mensaje puede no mostrarse inmediatamente debido a la redirección
+    console.log("Después de la redirección");
+  } catch (error) {
+    // Manejar cualquier error al obtener o parsear usuarios desde localStorage
+    console.error("Error:", error);
+    alert("Ocurrió un error al iniciar sesión");
+  }
 }
 
+
+
 function registroUsuarios(){
-  let usuarios = document.getElementById("user").value;
-  let password = document.getElementById("pass").value;
+  let usuarios = document.getElementById("usuario_init").value;
+  let password = document.getElementById("contra_init").value;
   let email = document.getElementById("Email").value;
 
   var user = JSON.parse(localStorage.getItem("userlog")) || [];
@@ -162,7 +183,7 @@ function registroUsuarios(){
       alert("Usuario ya existe");
       return;
   }
-  let user_r = { "user" : usuarios,"pass":password,"Email" : email}
+  let user_r = { "usuario_init" : usuarios,"contra_init":password,"Email" : email}
   user.push(user_r);
 
   localStorage.setItem("user", JSON.stringify(user));
