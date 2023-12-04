@@ -125,48 +125,37 @@ function cargarFormulario(nameForm,url) {
 }
 
 function iniciarSesion() {
-  let usuario = document.getElementById("usuario_log").value;
-  let contra = document.getElementById("contra_log").value;
+  let usuario = document.getElementById("usuario_init").value;
+  let contra = document.getElementById("contra_init").value;
 
+  var users = JSON.parse(localStorage.getItem("user")) || [];
+  
+  // Buscar el usuario en el array
+  var userLog = users.find(function(user) {
+  
+    return user["user"] === usuario;
+  });
 
-
-  try {
-    // Intenta obtener usuarios desde localStorage
-    var users = JSON.parse(localStorage.getItem("user")) || [];
-    
-    // Buscar el usuario en el array
-    var userLog = users.find(function(user) {
-      return user["user"] === usuario;
-    });
-
-    alert(userLog)
-
-    if (!userLog) {
-      alert("Usuario no encontrado");
-      return;
-    }
-
-    if (userLog["pass"] !== contra) {
-      alert("Contraseña incorrecta");
-      return;
-    }
-
-    localStorage.setItem("usuarioActual", JSON.stringify(userLog));
-    console.log("Antes de la redirección");
-    
-    // Cambiar la ubicación (URL) a "catalogo.html"
-    window.location.href = "catalogo.html";
-    
-    // Este mensaje puede no mostrarse inmediatamente debido a la redirección
-    console.log("Después de la redirección");
-  } catch (error) {
-    // Manejar cualquier error al obtener o parsear usuarios desde localStorage
-    console.error("Error:", error);
-    alert("Ocurrió un error al iniciar sesión");
+  if (!userLog) {
+    alert("Usuario no encontrado");
+    return;
   }
+
+  if (userLog["pass"] !== contra) {
+    alert("Contraseña incorrecta");
+    return;
+  }
+
+  localStorage.setItem("usuarioActual", JSON.stringify(userLog));
+  
+  console.log("Antes de la redirección");
+  
+  // Cambiar la ubicación (URL) a "catalogo.html"
+  window.location.href = "catalogo.html";
+  
+  // Este mensaje puede no mostrarse inmediatamente debido a la redirección
+  console.log("Después de la redirección");
 }
-
-
 
 function registroUsuarios(){
   let usuarios = document.getElementById("usuario_init").value;
