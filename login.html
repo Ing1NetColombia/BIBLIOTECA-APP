@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
-    <script src="js/functions.js"></script>
+    <script src="./js/functions.js"></script>
     <title>Inicio de sesion</title>
 </head>
 <body>
@@ -23,10 +23,8 @@
                 <label for="pass" class="label">Password</label>
                 <input id="contra_log" type="password" class="input" data-type="password">
               </div>
-
               <div class="group">
-                <input onclick="iniciarSesion()" type="submit" class="button" value="Sign In">
-                
+                <input onclick="iniciarSesion()" type="button" class="button" value="Sign In">
               </div>
               <div class="hr"></div>
             </div>
@@ -48,7 +46,7 @@
                 <input id="Email" type="text" class="input">
               </div>
               <div class="group">
-                <input onclick="registroUsuarios()" type="submit" class="button" value="Sign Up">
+                <input onclick="registroUsuarios()" type="button" class="button" value="Sign Up">
               </div>
               <div class="hr"></div>
 

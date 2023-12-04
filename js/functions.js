@@ -158,11 +158,14 @@ function iniciarSesion() {
 
   console.log("Antes de la redirección");
 
+  // var local = window.location.href
+  
   // Cambiar la ubicación (URL) a "login_2.html"
   window.location.href = "../index.html";
+  // alert("ingresando")
 
   // Este mensaje puede no mostrarse inmediatamente debido a la redirección
-  console.log("Después de la redirección");
+  // console.log("Después de la redirección");
 }
 
 
