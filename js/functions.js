@@ -125,37 +125,47 @@ function cargarFormulario(nameForm,url) {
 }
 
 function iniciarSesion() {
-  let usuario = document.getElementById("usuario_init").value;
-  let contra = document.getElementById("contra_init").value;
+  let usuario = document.getElementById("usuario_log").value;
+  let contra = document.getElementById("contra_log").value;
 
   var users = JSON.parse(localStorage.getItem("user")) || [];
-  
-  // Buscar el usuario en el array
-  var userLog = users.find(function(user) {
-  
-    return user["user"] === usuario;
-  });
+  var userLog = null;
+
+  if (users.length > 0) {
+    users.forEach(function(usuarios_f) {
+      var nombreUsuario = usuarios_f["usuario_init"];
+      
+      if (nombreUsuario === usuario) {
+        userLog = usuarios_f;
+        return;
+      }
+    });
+  } else {
+    console.log("No hay usuarios almacenados en el localStorage");
+  }
 
   if (!userLog) {
     alert("Usuario no encontrado");
     return;
   }
 
-  if (userLog["pass"] !== contra) {
+  if (userLog["contra_init"] !== contra) {
     alert("Contraseña incorrecta");
     return;
   }
 
   localStorage.setItem("usuarioActual", JSON.stringify(userLog));
-  
+
   console.log("Antes de la redirección");
-  
-  // Cambiar la ubicación (URL) a "catalogo.html"
-  window.location.href = "catalogo.html";
-  
+
+  // Cambiar la ubicación (URL) a "login_2.html"
+  window.location.href = "../index.html";
+
   // Este mensaje puede no mostrarse inmediatamente debido a la redirección
   console.log("Después de la redirección");
 }
+
+
 
 function registroUsuarios(){
   let usuarios = document.getElementById("usuario_init").value;
