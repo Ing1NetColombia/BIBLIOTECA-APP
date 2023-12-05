@@ -21,24 +21,24 @@ function cargarFormulario(nameForm, url) {
         case "catalago.html":
           datosGuardados.forEach((element) => {
             var plantilla = `<div class="container col-xxl-8 px-4 py-5">
-                        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-                        <div class="col-10 col-sm-8 col-lg-6">
-                            <img src="./assets/libro2.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
-                        </div>
-                        <div class="col-lg-6">
-                            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3" id = "name-book">${element["name-book"]}</h1>
-                            <h4 class="fw-bold text-body-emphasis" id = "book-author">Autor: ${element["book-author"]}</h4>
-                            <h4 class="fw-bold text-body-emphasis" id = "book-publication">Año de edicion: ${element["book-publication"]}</h4>
-                            <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-                            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
-                            </div>
-                        </div>
-                        </div>
-                        </div>
-                    
-                         <div class="b-example-divider"></div>`;
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+              <div class="col-10 col-sm-8 col-lg-6">
+                <img src="${element["book-image"]}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+              </div>
+              <div class="col-lg-6">
+                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">${element["name-book"]}</h1>
+                <h4 class="fw-bold text-body-emphasis">Autor: ${element["book-author"]}</h4>
+                <h4 class="fw-bold text-body-emphasis">Año de edicion: ${element["book-publication"]}</h4>
+                <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                  <button onclick="eliminarLibro('${element["name-book"]}')" type="button" class="btn btn-danger btn-lg px-4 me-md-2">Eliminar</button>
+                  <button type="button" class="btn btn-warning btn-lg px-4">Editar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="b-example-divider"></div>`;
 
             document.getElementById("libroteca").innerHTML += plantilla;
           });
@@ -59,7 +59,7 @@ function cargarFormulario(nameForm, url) {
                             </li>
                             <li class="d-flex align-items-center me-3">
                               <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                              <h5><a href="#" onclick="reservarLibro()">reserva ya</h5>
+                              <h5><a href="#" onclick="reservarLibro('${element["name-book"]}')">reserva ya</h5>
                             </li>
                           </ul>
                         </div>
@@ -119,7 +119,7 @@ function cargarFormulario(nameForm, url) {
           break;
       }
 
-      if (url == "catalago.html") {
+      /*if (url == "catalago.html") {
         var datosGuardados = JSON.parse(localStorage.getItem("book"));
         console.log(datosGuardados);
         //    alert(datosGuardados)
@@ -147,7 +147,7 @@ function cargarFormulario(nameForm, url) {
 
           document.getElementById("libroteca").innerHTML += plantilla;
         });
-      }
+      }*/
     })
     .catch((error) => console.error("Error al cargar el formulario:", error));
 }
@@ -379,13 +379,8 @@ function cargarImagen() {
 
 
 
-function reservarLibro() {
-  let name_book1 = document.getElementById("name-book");
-  let name_book = name_book1.innerText;
-  let autor1 = document.getElementById("book-author");
-  let autor = autor1.innerText;
-  let editorial1 = document.getElementById("book-editorial");
-  let editorial = editorial1.innerText;
+function reservarLibro(name_book) {
+
   let fecha = new Date();
   let fechaReserva = fecha.toISOString();
 
@@ -397,34 +392,46 @@ function reservarLibro() {
     return reserva_l["name-book"] == name_book;
   });
 
-  if (ReservaLog.length > 0) 
+    console.log(ReservaLog)
+
+  if (ReservaLog.length > 0) {
     Swal.fire({
-    title: "Oops...",
-    text: "El libro ya se encuentra reservado",
-    icon: "error"
-  });
-    alert("Usuario ya existe");
+      title: "Oops...",
+      text: "El libro ya se encuentra reservado",
+      icon: "error"
+    });
     return;
+
   }
-  let ReservaL = {
-    "name-book": name_book,
-    "book-author": autor,
-    "book-editorial": editorial,
-    fecha_reserva: fechaReserva,
-  };
-  reserva.push(ReservaL);
 
-  alert(JSON.stringify(ReservaL));
-  localStorage.setItem("reserva", JSON.stringify(reserva));
-
-  Swal.fire({
-    title: "Registro Completo",
-    text: "Puedes continuar con el proceso",
-    icon: "success"
+  var book = JSON.parse(localStorage.getItem("book"))
+  
+  var ReservaLog = book.filter(function (reserva_l) {
+    return reserva_l["name-book"] == name_book;
   });
 
+    //alert("Usuario ya existe");
+   console.log(ReservaLog)
+   let ReservaL = {
+     "name-book": ReservaLog[0]["name-book"],
+     "book-author":  ReservaLog[0]["book-author"] ,
+     "book-editorial":  ReservaLog[0]["book-editorial"] ,
+      "fecha_reserva": fechaReserva,
+   };
+    reserva.push(ReservaL);
+  
+    alert(JSON.stringify(ReservaL));
+    localStorage.setItem("reserva", JSON.stringify(reserva));
+  
+    Swal.fire({
+      title: "Registro Completo",
+      text: "Puedes continuar con el proceso",
+      icon: "success"
+    });
 
-  alert("Registro completo");
+  }
+  
+  
   //document.getElementById("formRegistro").reset();
 
 
