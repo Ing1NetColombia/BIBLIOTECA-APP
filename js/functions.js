@@ -128,7 +128,7 @@ function cargarFormulario(nameForm, url) {
           var plantilla = `<div class="container col-xxl-8 px-4 py-5">
                     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                       <div class="col-10 col-sm-8 col-lg-6">
-                        <img src="./assets/libro2.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+                        <img src="${element["book-image"]}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
                       </div>
                       <div class="col-lg-6">
                         <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">${element["name-book"]}</h1>
@@ -136,8 +136,8 @@ function cargarFormulario(nameForm, url) {
                         <h4 class="fw-bold text-body-emphasis">Año de edicion: ${element["book-publication"]}</h4>
                         <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-                          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+                          <button onclick="eliminarLibro('${element["name-book"]}')" type="button" class="btn btn-danger btn-lg px-4 me-md-2">Eliminar</button>
+                          <button type="button" class="btn btn-warning btn-lg px-4">Editar</button>
                         </div>
                       </div>
                     </div>
@@ -173,12 +173,24 @@ function iniciarSesion() {
   }
 
   if (!userLog) {
-    alert("Usuario no encontrado");
+
+    Swal.fire({
+      title: "Oops...",
+      text: "Usuario no encontrado",
+      icon: "error"
+    });
+
     return;
   }
 
   if (userLog["contra_init"] !== contra) {
-    alert("Contraseña incorrecta");
+    
+    Swal.fire({
+      title: "Oops...",
+      text: "Contraseña incorrecta",
+      icon: "error"
+    });
+
     return;
   }
 
@@ -196,6 +208,41 @@ function iniciarSesion() {
   // console.log("Después de la redirección");
 }
 
+function eliminarLibro(nombreLibro) {
+  var libros = JSON.parse(localStorage.getItem("book")) || [];
+
+  // Encuentra el índice del libro con el nombre proporcionado
+  var index = libros.findIndex(function(libro) {
+    return libro["name-book"] === nombreLibro;
+  });
+
+  // Si se encuentra el libro, elimínalo
+  if (index !== -1) {
+    libros.splice(index, 1);
+    localStorage.setItem("book", JSON.stringify(libros));
+   // console.log(`Libro "${nombreLibro}" eliminado exitosamente.`);
+
+    Swal.fire({
+      title: "Registro Completo",
+      text: "Libro eliminado exitosamente",
+      icon: "success"
+    });
+
+
+
+  } else {
+    //console.log(`Libro "${nombreLibro}" no encontrado en localStorage.`);
+    Swal.fire({
+      title: "Oops...",
+      text: "No se encontro el libro",
+      icon: "error"
+    });
+
+
+  }
+}
+
+
 function registroUsuarios() {
   let usuarios = document.getElementById("usuario_init").value;
   let password = document.getElementById("contra_init").value;
@@ -208,14 +255,24 @@ function registroUsuarios() {
   });
   alert(usuarios);
   if (userLog.length > 0) {
-    alert("Usuario ya existe");
+    Swal.fire({
+      title: "Oops...",
+      text: "Usuario ya existe",
+      icon: "error"
+    });
+
     return;
   }
   let user_r = { usuario_init: usuarios, contra_init: password, Email: email };
   user.push(user_r);
 
   localStorage.setItem("user", JSON.stringify(user));
-  alert("Registro completo");
+
+  Swal.fire({
+    title: "Registro Completo",
+    text: "Puedes continuar con el proceso",
+    icon: "success"
+  });
   document.getElementById("incio").reset();
 }
 
@@ -226,36 +283,90 @@ function registroLibro() {
   let y_public = document.getElementById("book-publication").value;
   let genero = document.getElementById("book-gender").value;
 
+  // Obtener una referencia al input de tipo archivo
+  const input = document.getElementById('image-input');
+
+  alert(input)
+
+  // Verificar si se seleccionó un archivo
+  if (input.files.length > 0) {
+    const file = input.files[0];
+
+    // Convertir la imagen a base64
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const base64Image = e.target.result;
+
+      // Guardar la imagen en localStorage
+      localStorage.setItem('bookImage', base64Image);
+    };
+
+    reader.readAsDataURL(file);
+  }
+
   var book = JSON.parse(localStorage.getItem("book")) || [];
-  //alerta(book);
   var bookLog = book.filter(function (books_f) {
     return books_f["name-book"] == n_book;
   });
 
   if (bookLog.length > 0) {
-    alert("Usuario ya existe");
+    Swal.fire({
+      title: "Oops...",
+      text: "El libro ya se encuentra registrado",
+      icon: "error"
+    });
     return;
   }
+
   let booksT = {
     "name-book": n_book,
     "book-author": autor,
     "book-editorial": editorial,
     "book-publication": y_public,
     "book-gender": genero,
+    "book-image": localStorage.getItem('bookImage') || null // Obtener la imagen desde localStorage
   };
+
   book.push(booksT);
 
   localStorage.setItem("book", JSON.stringify(book));
+  localStorage.removeItem('bookImage'); // Limpiar la imagen de localStorage después de usarla
+
   Swal.fire({
-    title: "Registro Completa",
+    title: "Registro Completo",
     text: "Puedes continuar con el proceso",
     icon: "success"
   });
 
-
-  //alert("Registro completo");
   document.getElementById("formRegistro").reset();
 }
+
+function cargarImagen() {
+  const input = document.getElementById('image-input');
+
+  // Verificar si se seleccionó un archivo
+  if (input.files.length > 0) {
+    const file = input.files[0];
+
+    // Convertir la imagen a base64
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const base64Image = e.target.result;
+
+      // Guardar la imagen en localStorage
+      localStorage.setItem('bookImage', base64Image);
+
+      alert('Imagen cargada correctamente.');
+    };
+
+    reader.readAsDataURL(file);
+  } else {
+    alert('Por favor, selecciona una imagen antes de intentar cargarla.');
+  }
+}
+
+
+
 
 function reservarLibro() {
   let name_book1 = document.getElementById("name-book");
@@ -275,7 +386,12 @@ function reservarLibro() {
     return reserva_l["name-book"] == name_book;
   });
 
-  if (ReservaLog.length > 0) {
+  if (ReservaLog.length > 0) 
+    Swal.fire({
+    title: "Oops...",
+    text: "El libro ya se encuentra reservado",
+    icon: "error"
+  });
     alert("Usuario ya existe");
     return;
   }
@@ -289,9 +405,17 @@ function reservarLibro() {
 
   alert(JSON.stringify(ReservaL));
   localStorage.setItem("reserva", JSON.stringify(reserva));
+
+  Swal.fire({
+    title: "Registro Completo",
+    text: "Puedes continuar con el proceso",
+    icon: "success"
+  });
+
+
   alert("Registro completo");
   //document.getElementById("formRegistro").reset();
-}
+
 
 // Función para cargar dinámicamente el historial en la tabla
 function cargarHistorial() {
