@@ -356,12 +356,23 @@ function cargarImagen() {
       // Guardar la imagen en localStorage
       localStorage.setItem('bookImage', base64Image);
 
-      alert('Imagen cargada correctamente.');
+      Swal.fire({
+        title: "Completado",
+        text: "Imagen cargada correctamente.",
+        icon: "success"
+      });
+
     };
 
     reader.readAsDataURL(file);
   } else {
-    alert('Por favor, selecciona una imagen antes de intentar cargarla.');
+    
+    Swal.fire({
+      title: "Oops...",
+      text: "selecciona una imagen antes de intentar cargarla.",
+      icon: "error"
+    });
+
   }
 }
 

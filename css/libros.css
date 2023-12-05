@@ -200,3 +200,17 @@ body {
   background: #e66d6d;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+
+#image-input{
+  display:inline-flex;
+  /* justify-content: flex-end;
+  align-items: flex-end; */
+  width: 19vw;
+  height: auto;
+  margin-top: 10px; /* Ajusta según sea necesario */
+  margin-right: 5px;
+  
+
+}
+
