@@ -59,14 +59,14 @@ function cargarFormulario(nameForm, url) {
           datosGuardados.forEach((element) => {
             var reservados = ` 
                     <div class="col">
-                      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+                      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('${element["book-image"]}');">
                         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                          <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold" id = "name-book">${element["name-book"]}</h4>
-                          <h6 class="fw-bold" id = "book-author">Autor: ${element["book-author"]}</h6>
-                          <h6 class="fw-bold" id="book-editorial">Editorial: ${element["book-editorial"]}</h6>
+                          <h4 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-dark" id = "name-book">${element["name-book"]}</h4>
+                          <h6 class="fw-bold text-dark" id = "book-author">Autor: ${element["book-author"]}</h6>
+                          <h6 class="fw-bold text-dark" id="book-editorial">Editorial: ${element["book-editorial"]}</h6>
                           <ul class="d-flex list-unstyled mt-auto">
                             <li class="me-auto">
-                              <img src="./assets/libro1.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                              <img src="${element["book-image"]}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
                             </li>
                             <li class="d-flex align-items-center me-3">
                               <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
@@ -359,6 +359,9 @@ function cargarImagen() {
   // Verificar si se seleccionó un archivo
   if (input.files.length > 0) {
     const file = input.files[0];
+//
+  localStorage.removeItem('bookImage');
+
 
     // Convertir la imagen a base64
     const reader = new FileReader();
