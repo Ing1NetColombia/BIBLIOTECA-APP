@@ -1,3 +1,14 @@
+window.addEventListener("load", function(){
+  if(document.getElementById("MenuLibros")){
+    let usuAct = JSON.parse(localStorage.getItem("usuarioActual"));
+  
+    if(usuAct["rol"] == 2){
+      document.getElementById("MenuLibros").style.display = "none";
+    }
+  }
+  
+})
+
 function cargarFormulario(nameForm, url) {
   //declaracion de variables para el llamado de los formularios
   //var url = 'libros.html';
@@ -247,6 +258,7 @@ function registroUsuarios() {
   let usuarios = document.getElementById("usuario_init").value;
   let password = document.getElementById("contra_init").value;
   let email = document.getElementById("Email").value;
+  let rolForm = document.getElementById("dropdown").value;
 
   var user = JSON.parse(localStorage.getItem("userlog")) || [];
   //alerta(book);
@@ -263,7 +275,7 @@ function registroUsuarios() {
 
     return;
   }
-  let user_r = { usuario_init: usuarios, contra_init: password, Email: email };
+  let user_r = { usuario_init: usuarios, contra_init: password, Email: email, rol: rolForm };
   user.push(user_r);
 
   localStorage.setItem("user", JSON.stringify(user));
