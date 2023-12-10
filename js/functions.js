@@ -43,7 +43,6 @@ function cargarFormulario(nameForm, url) {
                 <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                   <button onclick="eliminarLibro('${element["name-book"]}')" type="button" class="btn btn-danger btn-lg px-4 me-md-2">Eliminar</button>
-                  <button type="button" class="btn btn-warning btn-lg px-4">Editar</button>
                 </div>
               </div>
             </div>
@@ -219,6 +218,12 @@ function iniciarSesion() {
   // console.log("Después de la redirección");
 }
 
+
+function cerrarSesion(){
+  localStorage.removeItem("usuarioActual");
+  window.location.href = "../login.html";
+}
+
 function eliminarLibro(nombreLibro) {
   var libros = JSON.parse(localStorage.getItem("book")) || [];
 
@@ -298,7 +303,7 @@ function registroLibro() {
   // Obtener una referencia al input de tipo archivo
   const input = document.getElementById('image-input');
 
-  alert(input)
+ // alert(input)
 
   // Verificar si se seleccionó un archivo
   if (input.files.length > 0) {
@@ -348,9 +353,12 @@ function registroLibro() {
     title: "Registro Completo",
     text: "Puedes continuar con el proceso",
     icon: "success"
-  });
+  }); 
 
-  document.getElementById("formRegistro").reset();
+  var formulario = document.getElementById('libros');
+  formulario.reset();
+
+
 }
 
 function cargarImagen() {
