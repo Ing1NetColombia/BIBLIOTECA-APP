@@ -31,23 +31,28 @@ function cargarFormulario(nameForm, url) {
       switch (url) {
         case "catalago.html":
           datosGuardados.forEach((element) => {
-            var plantilla = `<div class="container col-xxl-8 px-4 py-5">
-            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-              <div class="col-10 col-sm-8 col-lg-6">
-                <img src="${element["book-image"]}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+            var plantilla = `
+            
+              <div class="container col-xxl-8 px-4 py-5">
+                
+                  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                   
+                      <div class="col-10 col-sm-8 col-lg-6">
+                        <img src="${element["book-image"]}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+                      </div>
+                      <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">${element["name-book"]}</h1>
+                        <h4 class="fw-bold text-body-emphasis">Autor: ${element["book-author"]}</h4>
+                        <h4 class="fw-bold text-body-emphasis">Año de edicion: ${element["book-publication"]}</h4>
+                        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                          <button onclick="eliminarLibro('${element["name-book"]}')" class="btn btn-danger btn-lg px-4 me-md-2">Eliminar</button>
+                        </div>
+                      </div>
+                    
+                  </div>
               </div>
-              <div class="col-lg-6">
-                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">${element["name-book"]}</h1>
-                <h4 class="fw-bold text-body-emphasis">Autor: ${element["book-author"]}</h4>
-                <h4 class="fw-bold text-body-emphasis">Año de edicion: ${element["book-publication"]}</h4>
-                <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                  <button onclick="eliminarLibro('${element["name-book"]}')" type="button" class="btn btn-danger btn-lg px-4 me-md-2">Eliminar</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        
+       
           <div class="b-example-divider"></div>`;
 
             document.getElementById("libroteca").innerHTML += plantilla;
@@ -96,7 +101,6 @@ function cargarFormulario(nameForm, url) {
                               <th>Autor</th>
                               <th>Editorial</th>
                               <th>Fecha de reserva</th>
-                              <th>Usuario</th>
                             </tr>
                           </thead>
                           <tbody id="historialTablaBody">
@@ -245,7 +249,7 @@ function eliminarLibro(nombreLibro) {
     });
 
 
-
+    cargarFormulario('container-princip','catalago.html')
   } else {
     //console.log(`Libro "${nombreLibro}" no encontrado en localStorage.`);
     Swal.fire({
@@ -253,9 +257,11 @@ function eliminarLibro(nombreLibro) {
       text: "No se encontro el libro",
       icon: "error"
     });
-
-
   }
+
+
+
+
 }
 
 
@@ -270,7 +276,7 @@ function registroUsuarios() {
   var userLog = user.filter(function (user_f) {
     return user_f["user"] == usuarios;
   });
-  alert(usuarios);
+  //alert(usuarios);
   if (userLog.length > 0) {
     Swal.fire({
       title: "Oops...",
@@ -361,7 +367,8 @@ function registroLibro() {
 
 }
 
-function cargarImagen() {
+function cargarImagen(e) {
+  e.preventDefault();
   const input = document.getElementById('image-input');
 
   // Verificar si se seleccionó un archivo
@@ -409,7 +416,7 @@ function reservarLibro(name_book) {
 
   var reserva = JSON.parse(localStorage.getItem("reserva")) || [];
 
-  alert(name_book);
+  //alert(name_book);
 
   var ReservaLog = reserva.filter(function (reserva_l) {
     return reserva_l["name-book"] == name_book;
@@ -443,7 +450,7 @@ function reservarLibro(name_book) {
    };
     reserva.push(ReservaL);
   
-    alert(JSON.stringify(ReservaL));
+    //alert(JSON.stringify(ReservaL));
     localStorage.setItem("reserva", JSON.stringify(reserva));
   
     Swal.fire({

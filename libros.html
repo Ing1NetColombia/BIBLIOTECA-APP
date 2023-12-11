@@ -1,85 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/libros.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/libros.css" />
     <script src="js/functions.js"></script>
     <title>Agregar Libros</title>
-</head>
-<body>
-    <div class='signup-container'>
-        <div class='left-container'>
-          <h1>
-            <i class='fas fa-paw'></i>
-            Agregar Libros
-          </h1>
-          <div class='puppy'>
-            <img  src="./assets/fondo2.jpg">
-          </div>
+  </head>
+  <body>
+    <div class="signup-container">
+      <div class="left-container">
+        <h1>
+          <i class="fas fa-paw"></i>
+          Agregar Libros
+        </h1>
+        <div class="puppy">
+          <img src="./assets/fondo2.jpg" />
         </div>
-        <div class='right-container'>
+      </div>
+      <form action="" id="libros">
+        <div class="right-container">
           <header>
-            <h1>La lectura es el camino hacia el conocimiento y la sabiduría.</h1>
-            <div class='set'>
-              <div class='name-book'>
-                <label for='name-book'>Nombre del Libro</label>
-                <input id='name-book' placeholder="Nombre del libro" type='text'>
+            <h1>
+              La lectura es el camino hacia el conocimiento y la sabiduría.
+            </h1>
+            <div class="set">
+              <div class="name-book">
+                <label for="name-book">Nombre del Libro</label>
+                <input
+                  id="name-book"
+                  placeholder="Nombre del libro"
+                  type="text"
+                />
               </div>
-
-              
-
             </div>
-            <div class='set'>
-              <div class='book-author'>
-                <label for='book-author'>Autor</label>
-                <input id='book-author' placeholder="Autor" type='text'>
+            <div class="set">
+              <div class="book-author">
+                <label for="book-author">Autor</label>
+                <input id="book-author" placeholder="Autor" type="text" />
               </div>
 
-              <div class='book-publication'>
-                <label for='book-publication'>Año de Publicación</label>
-                <div class='book-publication'>
-                  <input id='book-publication' placeholder='YYYY' type='number' min="1" max="9999">
+              <div class="book-publication">
+                <label for="book-publication">Año de Publicación</label>
+                <div class="book-publication">
+                  <input
+                    id="book-publication"
+                    placeholder="YYYY"
+                    type="number"
+                    min="1"
+                    max="9999"
+                    onkeypress="return event.charCode>=48 && event.charCode<=57"
+                  />
                 </div>
-                
               </div>
-              
-       
             </div>
-            
-            <div class='set'>
-              <div class='book-editorial'>
-                <label for='book-editorial'>Editorial</label>
+
+            <div class="set">
+              <div class="book-editorial">
+                <label for="book-editorial">Editorial</label>
                 <div>
-                  <input id='book-editorial' placeholder="Editorial" type='text'>
-                </div> 
-
-              </div>
-
-              <div class='book-gender'>
-                <label for='book-gender'>Genero</label>
-                <div class='book-gender'>
-                  <input id='book-gender'placeholder="Genero Del Libro" name='spayed-neutered' type='text'>
+                  <input
+                    id="book-editorial"
+                    placeholder="Editorial"
+                    type="text"
+                  />
                 </div>
               </div>
-            
+
+              <div class="book-gender">
+                <label for="book-gender">Genero</label>
+                <div class="book-gender">
+                  <input
+                    id="book-gender"
+                    placeholder="Genero Del Libro"
+                    name="spayed-neutered"
+                    type="text"
+                  />
+                </div>
+              </div>
             </div>
 
-            <div class='name-book'>
-              <label for='image-input'>Seleccionar Imagen</label>
-              <input id='image-input' type='file' accept='image/*'>
-              <button onclick="cargarImagen()">Cargar Imagen</button>
+            <div class="name-book">
+              <label for="image-input">Seleccionar Imagen</label>
+              <input id="image-input" type="file" accept="image/*" />
+              <button onclick="cargarImagen(event)">Cargar Imagen</button>
             </div>
-
-
           </header>
           <footer>
-            <div class='set'>
-              <button id='back'>Back</button>
-              <button id='save' onclick="registroLibro()">Guardar</button>
+            <div class="set">
+              <button id="save" onclick="registroLibro()">Guardar</button>
             </div>
           </footer>
         </div>
-      </div>
-</body>
+      </form>
+    </div>
+  </body>
 </html>
