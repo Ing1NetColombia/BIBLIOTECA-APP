@@ -271,7 +271,7 @@ function registroUsuarios() {
   let email = document.getElementById("Email").value;
   let rolForm = document.getElementById("dropdown").value;
 
-  var user = JSON.parse(localStorage.getItem("userlog")) || [];
+  var user = JSON.parse(localStorage.getItem("user")) || [];
   //alerta(book);
   var userLog = user.filter(function (user_f) {
     return user_f["user"] == usuarios;
@@ -412,7 +412,17 @@ function cargarImagen(e) {
 function reservarLibro(name_book) {
 
   let fecha = new Date();
-  let fechaReserva = fecha.toISOString();
+  //let fechaReserva = fecha.toISOString();
+  let fechaReserva = fecha.toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZone: 'UTC'
+  });
+
 
   var reserva = JSON.parse(localStorage.getItem("reserva")) || [];
 
